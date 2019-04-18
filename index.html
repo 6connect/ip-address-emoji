@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IP address to emoji</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="ip.js"></script>
+    <script src="https://twemoji.maxcdn.com/2/twemoji.min.js?11.3"></script>
+    <style>
+        html, body {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #input {
+            width: 90%;
+            min-height: 60px;
+            max-width: 700px;
+            
+
+            border: 1px dashed #1AA0CC;
+            box-shadow: 0px 0px 2px #1AA0CC;
+            border-radius: 7px;
+            padding: 5px;
+            text-align: center;
+            background-color: #B4ECFF;
+            opacity: 0.9;
+            color: #111;
+            font-family: monospace;
+            white-space: pre;
+            overflow-y: auto;
+            font-size: 338%;
+            outline: none;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .buttons {
+            margin: 20px 0;
+        }
+        button {
+            color: #fff;
+            background-color: #f09f2b;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: background-color .3s ease;
+            line-height: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        .emoji {
+            width: 30px;
+            margin: 0 10px;
+        }
+        .ipv6 .emoji {
+            width: 25px;
+            margin: 0 2px;
+        }
+
+        @media (max-width: 768px) {
+            #input {
+                font-size: 125% !important;
+            }
+            .ipv6 .emoji {
+                width: 20px;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>IP address to <em>EMOJI</em></h1>
+    <div contenteditable="true" data-gramm="false" id="input" class="whats-my-ip"></div>
+    <div class="buttons">
+        <button onclick="ipEncode()" style="background: #007bb8;">Encode</button>
+        <button onclick="ipParse()">Parse</button>
+    </div>
+
+    <script>
+        const input = document.getElementById('input');
+
+        const checkWidth = ()=>{
+            if (input.textContent.match(':') !== null) {
+                input.style.fontSize = "150%";
+                input.classList.add('ipv6');
+            } else {
+                input.style.fontSize = "338%";
+                input.classList.remove('ipv6');
+            }
+        }
+
+        const ipEncode = ()=>{
+            let string = '';
+            for (let index = 0; index < input.childNodes.length; index++) {
+                if (input.childNodes[index].alt) string += input.childNodes[index].alt;
+                else string += input.childNodes[index].textContent;
+            }
+            input.innerHTML = twemoji.parse(ipemotes.encode(string));
+            checkWidth();
+        }
+        const ipParse = ()=>{
+            let string = '';
+            for (let index = 0; index < input.childNodes.length; index++) {
+                if (input.childNodes[index].alt) string += input.childNodes[index].alt;
+                else string += input.childNodes[index].textContent;
+            }
+            input.textContent = ipemotes.parse(string);
+            checkWidth();
+        }
+
+
+        input.addEventListener('keydown', checkWidth);
+        input.addEventListener('keyup', checkWidth);
+        input.addEventListener('click', checkWidth);
+        input.addEventListener('change', checkWidth);
+        
+        /*
+        Script to track ipv6 usage vs ipv4
+        */
+        try {
+            const ipv6FillInIp = (ip) => {
+                // Fills in the IP address if an element has the class name '6connect-whats-my-ip'
+                const elements = document.body.querySelectorAll('.whats-my-ip');
+                const elements2 = document.body.querySelectorAll('.whats-my-ip__container');
+                for (let index = 0; index < elements.length; index++) {
+                    const element = elements[index];
+                    element.textContent = ip;
+                }
+                checkWidth();
+                for (let index = 0; index < elements2.length; index++) {
+                    const element = elements2[index];
+                    element.classList.add('whats-my-ip--active');
+                    if (ip.indexOf(':') > 0) {
+                        element.classList.add('whats-my-ip--ipv6');
+                    }
+                }
+            }
+            try {
+                fetch('https://ipv6.opl.io/?screen='+window.innerWidth)
+                .then(
+                function(response) {
+                    if (response.status !== 200) {
+                    return;
+                    }
+                    response.json().then(function(data) {
+                        ipv6FillInIp(data.yourIp);
+
+                        var sparkleMe = document.querySelectorAll('.sparkleMe');
+                        if (sparkleMe.length > 0) {
+                            for (var i = 0; i < sparkleMe.length; i++) {
+                            insertSparkle(sparkleMe[i]);
+                            }
+                        }
+                    });
+                }
+                )
+                .catch(function(err) {
+                // IPv4 fetch failed
+                });
+            } catch (e) {
+            // Fetch will fail silently on older browsers
+            }
+        } catch (e) {
+            //fail silently on older browsers
+        }
+    </script>
+        
+</body>
+</html>
