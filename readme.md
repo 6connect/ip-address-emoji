@@ -10,7 +10,7 @@ This is a simple script that converts IPv4 and IPv6 addresses to emoji in an att
 ```js
 console.log(
     ipemotes.encode('192.168.0.1'),
-    ipemotes.decode('✅🥖🎐🍛')
+    ipemotes.parse('✅🥖🎐🍛')
 );
 ```
 
