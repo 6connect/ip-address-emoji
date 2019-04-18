@@ -2,6 +2,8 @@
 
 This is a simple script that converts IPv4 and IPv6 addresses to emoji in an attempt to shorten and improve readability over standard IP addresses.
 
+[You can test it out here.](https://6connect.github.io/ip-address-emoji/)
+
 ```html
 <script src="https://6connect.github.io/ip-address-emoji/ip.js"></script>
 ```
