@@ -14,4 +14,4 @@ console.log(
 );
 ```
 
-There is also a [browser extension](https://github.com/6connect/ip-address-emoji-extension/) to quickly get converting with.
+There is also a [browser extension](https://github.com/6connect/ip-address-emoji-extension/) to quickly convert all IP addresses on any web page.
