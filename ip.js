@@ -24,7 +24,10 @@ ipemotes.processRemainder = (number) => {
 
 //Converts a decimal number to an emoji or emojis (depending on size of number and size of eLength)
 ipemotes.numToEmoji = (number) => {
-    if (number > eLength) {
+    if (isNaN(number)) {
+        return '';
+    }
+    else if (number > eLength) {
         let string = '';
         const pow = ipemotes.discoverPow(number);
         const powered = Math.pow(eLength, pow);
@@ -99,6 +102,10 @@ ipemotes.convertEmojiToIpv6 = (address) => {
     let string = '';
     for (let index = 0; index < address.length; index++) {
         let element = address[index];
+        if (element.length === 0) {
+            string += ':';
+            continue;
+        }
         element = ipemotes.parseEmoji(ipemotes.emotesToArray(element));
         let hexy = element.toString(16);
         while(hexy.length < 4) hexy = '0'+hexy;
