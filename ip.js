@@ -157,6 +157,7 @@ ipemotes.parse = (address) => {
     }
 }
 
+ipemotes.emojis = emojis;
 
 if (window) {
     window.ipemotes = ipemotes;

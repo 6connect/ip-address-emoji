@@ -20,11 +20,21 @@
 			width: 100%;
 			height: 100%;
 			margin: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
 			font-family: 'Roboto', sans-serif;
+			text-align: center;
+		}
+
+		body > * {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		h1 {
+			margin-top: 30vh;
+		}
+		p {
+			max-width: 630px;
+			display: block;
 		}
 
 		#input {
@@ -91,6 +101,23 @@
 				margin: 0;
 			}
 		}
+
+		#emojiContainer {
+			max-width: 700px;
+			width: 100%;
+			flex-wrap: wrap;
+			margin-top: 20vh;
+			text-align: center;
+		}
+		#emojiContainer > div {
+			margin: 0.5rem;
+			display: inline-block;
+			box-shadow: 0px 0px 2px #1AA0CC;
+			border-radius: 7px;
+			padding: 5px;
+			text-align: center;
+			background-color: #edfaff;
+		}
 		.footer {
 			margin-top: 2rem;
 		}
@@ -105,11 +132,17 @@
 		<button onclick="ipEncode()" style="background: #007bb8;">Encode</button>
 		<button onclick="ipParse()">Parse</button>
 	</div>
+	<p>
+		This project uses a hand picked list of visually distinct emoji, which corelate to numbers 0 through 255, to represent IP addresses.
+	</p>
+
 	<div class="footer">
 		<a href="https://github.com/6connect/ip-address-emoji">Source code</a>
 		&nbsp;
 		<a href="https://www.6connect.com/resources/how-to-view-ip-addresses-as-emojis/">About this project</a>
 	</div>
+
+	<div id="emojiContainer"></div>
 
 	<script>
 		const input = document.getElementById('input');
@@ -197,6 +230,15 @@
 			}
 		} catch (e) {
 			//fail silently on older browsers
+		}
+
+		const emojiContainer = document.getElementById('emojiContainer');
+		for (let index = 0; index < ipemotes.emojis.length; index++) {
+			const emoji = ipemotes.emojis[index];
+			const container = document.createElement('div');
+			container.textContent = index + ":";
+			container.innerHTML += twemoji.parse(emoji);
+			emojiContainer.appendChild(container);
 		}
 	</script>
 
