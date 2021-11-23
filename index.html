@@ -8,6 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="ip.js"></script>
 	<script src="https://twemoji.maxcdn.com/2/twemoji.min.js?11.3"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<style>
 		html,
 		body {
@@ -21,6 +24,7 @@
 			justify-content: center;
 			align-items: center;
 			flex-direction: column;
+			font-family: 'Roboto', sans-serif;
 		}
 
 		#input {
@@ -87,6 +91,9 @@
 				margin: 0;
 			}
 		}
+		.footer {
+			margin-top: 2rem;
+		}
 	</style>
 </head>
 
@@ -96,6 +103,11 @@
 	<div class="buttons">
 		<button onclick="ipEncode()" style="background: #007bb8;">Encode</button>
 		<button onclick="ipParse()">Parse</button>
+	</div>
+	<div class="footer">
+		<a href="https://github.com/6connect/ip-address-emoji">Source code</a>
+		&nbsp;
+		<a href="https://www.6connect.com/resources/how-to-view-ip-addresses-as-emojis/">About this project</a>
 	</div>
 
 	<script>
