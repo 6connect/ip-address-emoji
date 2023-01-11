@@ -146,6 +146,7 @@
 	<div id="emojiContainer"></div>
 
 	<script>
+		const emojiConf = {base: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/11.3.0/'};
 		const input = document.getElementById('input');
 
 		const checkWidth = () => {
@@ -164,7 +165,7 @@
 				if (input.childNodes[index].alt) string += input.childNodes[index].alt;
 				else string += input.childNodes[index].textContent;
 			}
-			input.innerHTML = twemoji.parse(ipemotes.encode(string));
+			input.innerHTML = twemoji.parse(ipemotes.encode(string), emojiConf);
 			checkWidth();
 		}
 		const ipParse = () => {
@@ -238,7 +239,7 @@
 			const emoji = ipemotes.emojis[index];
 			const container = document.createElement('div');
 			container.textContent = index + ":";
-			container.innerHTML += twemoji.parse(emoji);
+			container.innerHTML += twemoji.parse(emoji, emojiConf);
 			emojiContainer.appendChild(container);
 		}
 	</script>
